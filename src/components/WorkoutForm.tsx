@@ -9,7 +9,6 @@ import { toast } from "sonner";
 
 interface WorkoutFormProps {
   onAddWorkout: (workout: {
-    id: string;
     name: string;
     reps: string;
     day: string;
@@ -41,7 +40,6 @@ const WorkoutForm = ({ onAddWorkout }: WorkoutFormProps) => {
     }
 
     onAddWorkout({
-      id: Date.now().toString(),
       name,
       reps,
       day,
