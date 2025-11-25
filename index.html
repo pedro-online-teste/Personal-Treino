@@ -1,24 +1,123 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>d635516f-e437-4a32-820d-365a8494d1d1</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meu Personal</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-    <meta property="og:title" content="d635516f-e437-4a32-820d-365a8494d1d1" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+<div id="login-register-container" aria-live="polite">
+  <h2 id="form-title">Login</h2>
+  <form id="auth-form" novalidate>
+    <div id="name-group" class="form-group" style="display:none;">
+      <label for="name">Nome</label>
+      <input type="text" id="name" name="name" autocomplete="name" />
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" autocomplete="email" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required minlength="6" />
+    </div>
+    <div class="form-group form-btn-group">
+      <input type="submit" value="Entrar" />
+    </div>
+  </form>
+  <button id="toggle-form" aria-controls="auth-form" aria-expanded="false">Criar uma conta</button>
+  <div id="error-message" role="alert" aria-live="assertive"></div>
+</div>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+<div id="app" style="display:none;">
+  <nav class="sidebar" role="navigation" aria-label="Menu lateral">
+    <h2>Meu Personal</h2>
+    <ul>
+      <li><button id="menu-gym" aria-controls="section-gym" aria-selected="true">🏋️ Academia</button></li>
+      <li><button id="menu-box" aria-controls="section-box" aria-selected="false">🥊 Boxe</button></li>
+      <li><button id="menu-trainings" aria-controls="section-trainings" aria-selected="false">📅 Meus treinos</button></li>
+      <li><button id="menu-profile" aria-controls="section-profile" aria-selected="false">⚙️ Perfil</button></li>
+    </ul>
+  </nav>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <main class="content" tabindex="0">
+    <header class="app-header" aria-live="polite"></header>
+
+    <section id="section-gym" class="section visible" aria-label="Treinos Academia">
+      <h3>Treinos Academia</h3>
+      <form id="form-add-exercise-gym" aria-label="Adicionar exercício Academia" class="form-exercise">
+        <div class="form-group">
+          <label for="exercise-name-gym" class="inline">Nome do exercício</label>
+          <input type="text" id="exercise-name-gym" required placeholder="Ex: Supino" />
+        </div>
+        <div class="form-group">
+          <label for="exercise-duration-gym" class="inline">Duração / Repetições</label>
+          <input type="text" id="exercise-duration-gym" required placeholder="Ex: 3x12 ou 30min" />
+        </div>
+        <div class="form-group">
+          <label for="exercise-day-gym" class="inline">Dia da semana</label>
+          <select id="exercise-day-gym" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="Segunda">Segunda</option>
+            <option value="Terça">Terça</option>
+            <option value="Quarta">Quarta</option>
+            <option value="Quinta">Quinta</option>
+            <option value="Sexta">Sexta</option>
+            <option value="Sábado">Sábado</option>
+            <option value="Domingo">Domingo</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary btn-add-exercise">Adicionar exercício</button>
+      </form>
+      <div id="exercise-list-gym" aria-live="polite"></div>
+    </section>
+
+    <section id="section-box" class="section" aria-label="Treinos Boxe" hidden>
+      <h3>Treinos Boxe</h3>
+      <form id="form-add-exercise-box" aria-label="Adicionar exercício Boxe" class="form-exercise">
+        <div class="form-group">
+          <label for="exercise-name-box" class="inline">Nome do exercício</label>
+          <input type="text" id="exercise-name-box" required placeholder="Ex: Saco de pancadas" />
+        </div>
+        <div class="form-group">
+          <label for="exercise-duration-box" class="inline">Duração / Repetições</label>
+          <input type="text" id="exercise-duration-box" required placeholder="Ex: 3x12 ou 30min" />
+        </div>
+        <div class="form-group">
+          <label for="exercise-day-box" class="inline">Dia da semana</label>
+          <select id="exercise-day-box" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="Segunda">Segunda</option>
+            <option value="Terça">Terça</option>
+            <option value="Quarta">Quarta</option>
+            <option value="Quinta">Quinta</option>
+            <option value="Sexta">Sexta</option>
+            <option value="Sábado">Sábado</option>
+            <option value="Domingo">Domingo</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary btn-add-exercise">Adicionar exercício</button>
+      </form>
+      <div id="exercise-list-box" aria-live="polite"></div>
+    </section>
+
+    <section id="section-trainings" class="section" aria-label="Planejamento semanal" hidden>
+      <h3>Planejamento Semanal</h3>
+      <div id="weekly-schedule" aria-live="polite"></div>
+      <div id="progress-summary" class="progress-summary"></div>
+      <button id="btn-reset" class="btn-primary btn-reset" aria-label="Redefinir todos os treinos">Redefinir todos os treinos</button>
+    </section>
+
+    <section id="section-profile" class="section" aria-label="Perfil do usuário" hidden>
+      <h3>Perfil</h3>
+      <div id="profile"></div>
+      <button id="btn-logout" class="btn-primary btn-logout" aria-label="Sair da conta">Sair</button>
+    </section>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
