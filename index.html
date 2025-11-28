@@ -1,123 +1,209 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Meu Personal</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerencie seus treinos de academia e boxe de forma simples e eficiente">
+  <title>Meu Personal - Gerenciador de Treinos</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div id="login-register-container" aria-live="polite">
-  <h2 id="form-title">Login</h2>
-  <form id="auth-form" novalidate>
-    <div id="name-group" class="form-group" style="display:none;">
-      <label for="name">Nome</label>
-      <input type="text" id="name" name="name" autocomplete="name" />
-    </div>
-    <div class="form-group">
-      <label for="email">E-mail</label>
-      <input type="email" id="email" name="email" autocomplete="email" required />
-    </div>
-    <div class="form-group">
-      <label for="password">Senha</label>
-      <input type="password" id="password" name="password" autocomplete="current-password" required minlength="6" />
-    </div>
-    <div class="form-group form-btn-group">
-      <input type="submit" value="Entrar" />
-    </div>
-  </form>
-  <button id="toggle-form" aria-controls="auth-form" aria-expanded="false">Criar uma conta</button>
-  <div id="error-message" role="alert" aria-live="assertive"></div>
-</div>
-
-<div id="app" style="display:none;">
-  <nav class="sidebar" role="navigation" aria-label="Menu lateral">
-    <h2>Meu Personal</h2>
-    <ul>
-      <li><button id="menu-gym" aria-controls="section-gym" aria-selected="true">🏋️ Academia</button></li>
-      <li><button id="menu-box" aria-controls="section-box" aria-selected="false">🥊 Boxe</button></li>
-      <li><button id="menu-trainings" aria-controls="section-trainings" aria-selected="false">📅 Meus treinos</button></li>
-      <li><button id="menu-profile" aria-controls="section-profile" aria-selected="false">⚙️ Perfil</button></li>
-    </ul>
-  </nav>
-
-  <main class="content" tabindex="0">
-    <header class="app-header" aria-live="polite"></header>
-
-    <section id="section-gym" class="section visible" aria-label="Treinos Academia">
-      <h3>Treinos Academia</h3>
-      <form id="form-add-exercise-gym" aria-label="Adicionar exercício Academia" class="form-exercise">
+  <!-- Tela de Login/Cadastro -->
+  <div id="auth-screen" class="auth-container">
+    <div class="auth-card">
+      <h1 class="auth-title">💪 Meu Personal</h1>
+      <p class="auth-subtitle">Gerencie seus treinos</p>
+      
+      <form id="auth-form" class="auth-form">
+        <h2 id="form-title">Entrar</h2>
+        
         <div class="form-group">
-          <label for="exercise-name-gym" class="inline">Nome do exercício</label>
-          <input type="text" id="exercise-name-gym" required placeholder="Ex: Supino" />
+          <label for="email">E-mail</label>
+          <input type="email" id="email" required placeholder="seu@email.com">
         </div>
+        
         <div class="form-group">
-          <label for="exercise-duration-gym" class="inline">Duração / Repetições</label>
-          <input type="text" id="exercise-duration-gym" required placeholder="Ex: 3x12 ou 30min" />
+          <label for="password">Senha</label>
+          <input type="password" id="password" required minlength="6" placeholder="Mínimo 6 caracteres">
         </div>
-        <div class="form-group">
-          <label for="exercise-day-gym" class="inline">Dia da semana</label>
-          <select id="exercise-day-gym" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="Segunda">Segunda</option>
-            <option value="Terça">Terça</option>
-            <option value="Quarta">Quarta</option>
-            <option value="Quinta">Quinta</option>
-            <option value="Sexta">Sexta</option>
-            <option value="Sábado">Sábado</option>
-            <option value="Domingo">Domingo</option>
-          </select>
-        </div>
-        <button type="submit" class="btn-primary btn-add-exercise">Adicionar exercício</button>
+        
+        <button type="submit" class="btn-primary" id="submit-btn">Entrar</button>
+        
+        <button type="button" class="btn-link" id="toggle-auth">Criar uma conta</button>
       </form>
-      <div id="exercise-list-gym" aria-live="polite"></div>
-    </section>
+      
+      <div id="auth-error" class="error-message"></div>
+    </div>
+  </div>
 
-    <section id="section-box" class="section" aria-label="Treinos Boxe" hidden>
-      <h3>Treinos Boxe</h3>
-      <form id="form-add-exercise-box" aria-label="Adicionar exercício Boxe" class="form-exercise">
-        <div class="form-group">
-          <label for="exercise-name-box" class="inline">Nome do exercício</label>
-          <input type="text" id="exercise-name-box" required placeholder="Ex: Saco de pancadas" />
+  <!-- App Principal -->
+  <div id="app-screen" class="app-container" style="display: none;">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <h2>💪 Meu Personal</h2>
+      </div>
+      
+      <ul class="nav-menu">
+        <li>
+          <button class="nav-item active" data-section="gym">
+            <span class="nav-icon">🏋️</span>
+            <span>Academia</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-section="boxing">
+            <span class="nav-icon">🥊</span>
+            <span>Boxe</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-section="schedule">
+            <span class="nav-icon">📅</span>
+            <span>Planejamento</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-section="profile">
+            <span class="nav-icon">👤</span>
+            <span>Perfil</span>
+          </button>
+        </li>
+      </ul>
+      
+      <button class="btn-logout" id="logout-btn">Sair</button>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+      <header class="app-header">
+        <h1 id="page-title">Academia</h1>
+        <p id="user-greeting"></p>
+      </header>
+
+      <!-- Seção Academia -->
+      <section id="gym-section" class="content-section active">
+        <div class="section-card">
+          <h3>Adicionar Exercício</h3>
+          <form class="exercise-form" data-category="gym">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nome do Exercício</label>
+                <input type="text" name="name" required placeholder="Ex: Supino">
+              </div>
+              <div class="form-group">
+                <label>Repetições/Tempo</label>
+                <input type="text" name="reps" required placeholder="Ex: 3x12 ou 30min">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Dia da Semana</label>
+              <select name="day" required>
+                <option value="">Selecione</option>
+                <option value="Segunda">Segunda</option>
+                <option value="Terça">Terça</option>
+                <option value="Quarta">Quarta</option>
+                <option value="Quinta">Quinta</option>
+                <option value="Sexta">Sexta</option>
+                <option value="Sábado">Sábado</option>
+                <option value="Domingo">Domingo</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary">Adicionar Exercício</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="exercise-duration-box" class="inline">Duração / Repetições</label>
-          <input type="text" id="exercise-duration-box" required placeholder="Ex: 3x12 ou 30min" />
+
+        <div class="section-card">
+          <h3>Meus Exercícios</h3>
+          <div id="gym-list" class="exercise-list"></div>
         </div>
-        <div class="form-group">
-          <label for="exercise-day-box" class="inline">Dia da semana</label>
-          <select id="exercise-day-box" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="Segunda">Segunda</option>
-            <option value="Terça">Terça</option>
-            <option value="Quarta">Quarta</option>
-            <option value="Quinta">Quinta</option>
-            <option value="Sexta">Sexta</option>
-            <option value="Sábado">Sábado</option>
-            <option value="Domingo">Domingo</option>
-          </select>
+      </section>
+
+      <!-- Seção Boxe -->
+      <section id="boxing-section" class="content-section">
+        <div class="section-card">
+          <h3>Adicionar Exercício</h3>
+          <form class="exercise-form" data-category="boxing">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nome do Exercício</label>
+                <input type="text" name="name" required placeholder="Ex: Saco de pancadas">
+              </div>
+              <div class="form-group">
+                <label>Repetições/Tempo</label>
+                <input type="text" name="reps" required placeholder="Ex: 3x12 ou 30min">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Dia da Semana</label>
+              <select name="day" required>
+                <option value="">Selecione</option>
+                <option value="Segunda">Segunda</option>
+                <option value="Terça">Terça</option>
+                <option value="Quarta">Quarta</option>
+                <option value="Quinta">Quinta</option>
+                <option value="Sexta">Sexta</option>
+                <option value="Sábado">Sábado</option>
+                <option value="Domingo">Domingo</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary">Adicionar Exercício</button>
+          </form>
         </div>
-        <button type="submit" class="btn-primary btn-add-exercise">Adicionar exercício</button>
-      </form>
-      <div id="exercise-list-box" aria-live="polite"></div>
-    </section>
 
-    <section id="section-trainings" class="section" aria-label="Planejamento semanal" hidden>
-      <h3>Planejamento Semanal</h3>
-      <div id="weekly-schedule" aria-live="polite"></div>
-      <div id="progress-summary" class="progress-summary"></div>
-      <button id="btn-reset" class="btn-primary btn-reset" aria-label="Redefinir todos os treinos">Redefinir todos os treinos</button>
-    </section>
+        <div class="section-card">
+          <h3>Meus Exercícios</h3>
+          <div id="boxing-list" class="exercise-list"></div>
+        </div>
+      </section>
 
-    <section id="section-profile" class="section" aria-label="Perfil do usuário" hidden>
-      <h3>Perfil</h3>
-      <div id="profile"></div>
-      <button id="btn-logout" class="btn-primary btn-logout" aria-label="Sair da conta">Sair</button>
-    </section>
-  </main>
-</div>
+      <!-- Seção Planejamento Semanal -->
+      <section id="schedule-section" class="content-section">
+        <div class="progress-bar">
+          <div class="progress-info">
+            <span id="progress-text">0 de 0 treinos concluídos</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
 
-<script src="script.js"></script>
+        <div id="weekly-schedule" class="weekly-grid"></div>
+
+        <button class="btn-secondary" id="reset-btn">Resetar Progresso Semanal</button>
+      </section>
+
+      <!-- Seção Perfil -->
+      <section id="profile-section" class="content-section">
+        <div class="section-card profile-card">
+          <h3>Meu Perfil</h3>
+          <div class="profile-info">
+            <div class="profile-item">
+              <strong>E-mail:</strong>
+              <span id="profile-email"></span>
+            </div>
+            <div class="profile-stats">
+              <div class="stat-card">
+                <div class="stat-number" id="total-workouts">0</div>
+                <div class="stat-label">Treinos Cadastrados</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="completed-workouts">0</div>
+                <div class="stat-label">Treinos Concluídos</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="completion-rate">0%</div>
+                <div class="stat-label">Taxa de Conclusão</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
 </body>
 </html>
